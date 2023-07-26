@@ -9,8 +9,8 @@ let gameInfo = {
 };
 
 // toggles the start/end of the game:
-const playButton = document.querySelector(".playButton");
-playButton.addEventListener("click", startGame);
+const startButton = document.querySelector(".startButton");
+startButton.addEventListener("click", startGame);
 const resetButton = document.querySelector(".resetButton");
 resetButton.addEventListener("click", resetGame);
 
@@ -29,15 +29,16 @@ inputs.forEach((input) =>
 
 const playerScoreEl = document.querySelector(".playerScore");
 const compScoreEl = document.querySelector(".compScore");
+const messageEl = document.querySelector("message");
 
 function startGame() {
-	playButton.style.visibility = "collapse";
+	startButton.style.visibility = "collapse";
 	inputContainer.style.visibility = "visible";
 	gameOverContainer.style.visibility = "visible";
 }
 
 function resetGame() {
-	playButton.style.visibility = "visible";
+	startButton.style.visibility = "visible";
 	gameOverContainer.style.visibility = "collapse";
 
 	gameInfo = {
