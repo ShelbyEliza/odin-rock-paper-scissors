@@ -15,21 +15,26 @@
 
       <h2>Score</h2>
 
-      <div class="label">
-        <p>Player:</p>
-        <p class="playerScore score">0</p>
+      <div class="scores">
+        <div class="label">
+          <p>Player:</p>
+          <p class="playerScore score">0</p>
+        </div>
+        <div class="label">
+          <p>Computer:</p>
+          <p class="compScore score">0</p>
+        </div>
+        <div class="label tiesLabel">
+          <p>Ties:</p>
+          <p class="ties score">0</p>
+        </div>
       </div>
-      <div class="label">
-        <p>Computer:</p>
-        <p class="compScore score">0</p>
-      </div>
-
-
+      <p class="message"></p>
     </div>
 
-    <button class="playButton">Play the Game</button>
+    <button class="startButton">Start the Game</button>
     <div class="inputContainer toggleView">
-      <h3 class="message">Pick Your Weapon:</h3>
+      <h3 class="inputLabel">Pick Your Weapon:</h3>
       <button id="rock" class="input">Rock</button>
       <button id="paper" class="input">Paper</button>
       <button id="scissors" class="input">Scissors</button>
@@ -37,10 +42,7 @@
     <div class="gameOverContainer toggleView">
       <h3 class="gameOverMsg"></h3>
       <button class="resetButton">Reset the Game</button>
-
     </div>
-    <!-- <script src="oneRound.js"></script> -->
-
   </body>
 
 </html>

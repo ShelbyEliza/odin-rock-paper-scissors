@@ -1,23 +1,23 @@
 let gameInfo = {
 	playerScore: 0,
 	compScore: 0,
-	playerInputs: [],
-	compInputs: [],
-	round: 0,
-	gameOn: false,
-	messages: [],
+	ties: 0,
+	round: 1,
 };
 
-// toggles the start/end of the game:
-const playButton = document.querySelector(".playButton");
-playButton.addEventListener("click", startGame);
+const startButton = document.querySelector(".startButton");
 const resetButton = document.querySelector(".resetButton");
-resetButton.addEventListener("click", resetGame);
-
 const inputContainer = document.querySelector(".inputContainer");
-
 const gameOverContainer = document.querySelector(".gameOverContainer");
 const gameOverMsg = document.querySelector(".gameOverMsg");
+const playerScoreEl = document.querySelector(".playerScore");
+const compScoreEl = document.querySelector(".compScore");
+const tiesEl = document.querySelector(".ties");
+const messageEl = document.querySelector(".message");
+
+// toggles the start/reset of the game:
+startButton.addEventListener("click", startGame);
+resetButton.addEventListener("click", resetGame);
 
 // selection triggers round:
 const inputs = document.querySelectorAll(".input");
@@ -27,36 +27,29 @@ inputs.forEach((input) =>
 	})
 );
 
-const playerScoreEl = document.querySelector(".playerScore");
-const compScoreEl = document.querySelector(".compScore");
-
 function startGame() {
-	playButton.style.visibility = "collapse";
+	startButton.style.visibility = "collapse";
 	inputContainer.style.visibility = "visible";
 	gameOverContainer.style.visibility = "visible";
 }
 
 function resetGame() {
-	playButton.style.visibility = "visible";
+	startButton.style.visibility = "visible";
 	gameOverContainer.style.visibility = "collapse";
+	inputContainer.style.visibility = "collapse";
 
 	gameInfo = {
 		playerScore: 0,
 		compScore: 0,
-		playerInputs: [],
-		compInputs: [],
+		ties: 0,
 		round: 0,
-		gameOn: false,
-		messages: [],
 	};
-	updateScore("both");
+	messageEl.textContent = "";
 	gameOverMsg.textContent = "";
 }
 
 function playRound(playerInput) {
 	let compInput = getCompInput();
-	gameInfo.compInputs.push(compInput);
-	gameInfo.playerInputs.push(playerInput);
 
 	let result;
 	if (playerInput === compInput) {
@@ -77,48 +70,34 @@ function playRound(playerInput) {
 		}
 	}
 
-	calculateScore(result, playerInput, compInput);
+	setScore(result, playerInput, compInput);
 }
 
-function calculateScore(roundScore, playerInput, compInput) {
+function setScore(roundScore, playerInput, compInput) {
 	if (roundScore === 10) {
 		console.log("Something went wrong... ");
 		return;
 	} else {
 		if (roundScore === 1) {
-			roundMessage = `You win! ${playerInput} beats ${compInput}`;
+			messageEl.textContent = `Round: ${gameInfo.round} You win! ${playerInput} beats ${compInput}`;
 			gameInfo.playerScore++;
-			updateScore("player");
+			playerScoreEl.textContent = `${gameInfo.playerScore}`;
 		} else if (roundScore === -1) {
-			roundMessage = `You lose! ${compInput} beats ${playerInput}`;
+			messageEl.textContent = `Round: ${gameInfo.round} You lose! ${compInput} beats ${playerInput}`;
 			gameInfo.compScore++;
-			updateScore("comp");
+			compScoreEl.textContent = `${gameInfo.compScore}`;
 		} else if (roundScore === 0) {
-			roundMessage = `It's a tie! ${compInput} against ${playerInput}`;
+			messageEl.textContent = `Round: ${gameInfo.round} It's a tie! ${compInput} vs ${playerInput}`;
+			gameInfo.ties++;
+			tiesEl.textContent = `${gameInfo.ties}`;
 		}
 		gameInfo.round++;
-		gameInfo.messages.push(roundMessage);
 		checkGameStatus();
-	}
-}
-
-function updateScore(who) {
-	switch (who) {
-		case "player":
-			playerScoreEl.textContent = `${gameInfo.playerScore}`;
-			break;
-		case "comp":
-			compScoreEl.textContent = `${gameInfo.compScore}`;
-			break;
-		default:
-			compScoreEl.textContent = "0";
-			playerScoreEl.textContent = "0";
 	}
 }
 
 function checkGameStatus() {
 	if (gameInfo.playerScore === 5 || gameInfo.compScore === 5) {
-		gameInfo.gameOn = false;
 		inputContainer.style.visibility = "collapse";
 
 		if (gameInfo.playerScore === 5) {

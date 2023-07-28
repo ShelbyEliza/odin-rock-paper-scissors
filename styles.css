@@ -1,11 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Space+Mono&display=swap");
-
-:root {
-	--heart-potion: #b171b8ff;
-	--bud-green: #78b871;
-	--nightly-activities: #294897;
-}
 
 html,
 body {
@@ -16,7 +9,7 @@ body {
 	font-family: "Space Mono", monospace;
 }
 body {
-	background-color: var(--nightly-activities);
+	background-color: #294897;
 	color: snow;
 	display: flex;
 	flex-direction: column;
@@ -42,7 +35,13 @@ h3 {
 	width: 30%;
 
 	padding: 0.2rem 2rem;
-	margin-bottom: 4rem;
+}
+.scores {
+	display: flex;
+	justify-content: space-between;
+}
+.tiesLabel {
+	color: rgb(186, 186, 186);
 }
 .label {
 	display: flex;
@@ -51,7 +50,7 @@ h3 {
 	margin-left: auto;
 }
 button {
-	background-color: #ffc0cb;
+	background-color: pink;
 	box-shadow: none;
 	font-size: 1.2rem;
 
@@ -68,6 +67,6 @@ button:hover {
 .toggleView {
 	visibility: collapse;
 }
-/* .visible {
-	visibility: visible;
-} */
+.gameOverContainer {
+	text-align: center;
+}
